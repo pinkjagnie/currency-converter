@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "eslint": "^7.32.0",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",

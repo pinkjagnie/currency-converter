@@ -1,5 +1,7 @@
 import React from "react";
-import { View, StyleSheet, StatusBar, Image, Dimensions } from "react-native";
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text } from "react-native";
+
+import { format } from "date-fns";
 
 import { ConversionInput } from "../components/ConversionInput";
 
@@ -8,6 +10,11 @@ import colors from "../constans/colors";
 const screen = Dimensions.get('window');
 
 export default () => {
+  const baseCurrency = "USD"
+  const quoteCurrency = "GBP"
+  const conversionRate = 0.89824
+  const date = "2022-10-03"
+
   return(
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -25,19 +32,25 @@ export default () => {
         />
       </View>
 
+      <Text style={styles.textHeader}>Currency Converter</Text>
+
       <ConversionInput
-        text="USD"
+        text={baseCurrency}
         value="123"
         onButtonPress={() => alert("todo!")}
         keyboardType="numeric"
         onChangeText={text => console.log("text", text)}
       />
       <ConversionInput
-        text="GBP"
+        text={quoteCurrency}
         value="123"
         editable={false}
         onButtonPress={() => alert("todo!")}
       />
+
+      <Text style={styles.text}>
+        {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(new Date(date), "MMM do, yyyy")}`}
+      </Text>
 
     </View>
   )
@@ -61,5 +74,20 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: screen.width * 0.25,
     height: screen.width * 0.25,
-  }
+  },
+  textHeader: {
+    color: colors.white,
+    fontWeight: "bold",
+    fontSize: 30,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 14,
+    color: colors.white,
+    textAlign: "center",
+  },
+   inputContainer: {
+    marginBottom: 10,
+  },
 })
