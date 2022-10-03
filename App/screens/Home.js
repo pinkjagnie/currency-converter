@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, Keyboard } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView } from "react-native";
 
 import { format } from "date-fns";
 
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
+import { KeyboardSpacer } from "../components/KeyboardSpacer";
 
 import colors from "../constans/colors";
 
@@ -17,21 +18,6 @@ export default () => {
   const quoteCurrency = "GBP"
   const conversionRate = 0.89824
   const date = "2022-10-03"
-
-  useEffect(() => {
-    const showListener = Keyboard.addListener("keyboardDidShow", () => {
-      setScrollEnabled(true)
-    })
-    
-    const hideListener = Keyboard.addListener("keyboardDidHide", () => {
-      setScrollEnabled(false)
-    })
-
-    return () => {
-      showListener.remove()
-      hideListener.remove()
-    }
-  }, []);
 
   return(
     <View style={styles.container}>
@@ -75,7 +61,7 @@ export default () => {
 
           <Button text="Reverse currencies" onPress={() => {alert('to do!')}} />
 
-          <View style={{ height: screen.height }} />
+          <KeyboardSpacer onToggle={(keyboardIsVisible) => {setScrollEnabled(keyboardIsVisible)}} />
         </View>
       </ScrollView>
     </View>
