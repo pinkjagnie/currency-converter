@@ -58,7 +58,7 @@ export default ( {navigation} ) => {
           <ConversionInput
             text={baseCurrency}
             value={value}
-            onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency', activeCurrency: baseCurrency})}
+            onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency', activeCurrency: baseCurrency, onChange: (currency) => setBaseCurrency(currency)})}
             keyboardType="numeric"
             onChangeText={text => setValue(text)}
           />
@@ -68,7 +68,7 @@ export default ( {navigation} ) => {
               value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
             }
             editable={false}
-            onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency', activeCurrency: quoteCurrency})}
+            onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency', activeCurrency: quoteCurrency, onChange: (currency) => setQuoteCurrency(currency)})}
           />
 
           <Text style={styles.text}>
