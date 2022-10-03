@@ -52,7 +52,7 @@ export default ( {navigation} ) => {
           <ConversionInput
             text={baseCurrency}
             value="123"
-            onButtonPress={() => navigation.push('CurrencyList')}
+            onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency'})}
             keyboardType="numeric"
             onChangeText={text => console.log("text", text)}
           />
@@ -60,7 +60,7 @@ export default ( {navigation} ) => {
             text={quoteCurrency}
             value="123"
             editable={false}
-            onButtonPress={() => navigation.push("CurrencyList")}
+            onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency'})}
           />
 
           <Text style={styles.text}>
