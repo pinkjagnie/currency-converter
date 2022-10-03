@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 
 import { ConversionContext } from "../util/ConversionContext";
 
@@ -19,7 +19,7 @@ export default ( {navigation} ) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const [value, setValue] = useState("100");
 
-  const { baseCurrency, quoteCurrency, swapCurrencies, date, rates } = useContext(ConversionContext);
+  const { baseCurrency, quoteCurrency, swapCurrencies, date, rates, isLoading } = useContext(ConversionContext);
 
   const conversionRate = rates[quoteCurrency];
 
@@ -52,6 +52,8 @@ export default ( {navigation} ) => {
 
           <Text style={styles.textHeader}>Currency Converter</Text>
 
+          {isLoading ? (<ActivityIndicator color={colors.white} size='large' />) : (
+          <>
           <ConversionInput
             text={baseCurrency}
             value={value}
@@ -73,6 +75,8 @@ export default ( {navigation} ) => {
           </Text>
 
           <Button text="Reverse currencies" onPress={() => swapCurrencies()} />
+          </>
+          )}
 
           <KeyboardSpacer onToggle={(keyboardIsVisible) => {setScrollEnabled(keyboardIsVisible)}} />
         </View>
