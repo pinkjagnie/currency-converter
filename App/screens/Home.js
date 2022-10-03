@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, TouchableOpacity } from "react-native";
+
+import { ConversionContext } from "../util/ConversionContext";
 
 import { format } from "date-fns";
 import { Entypo } from "@expo/vector-icons";
@@ -15,17 +17,12 @@ const screen = Dimensions.get('window');
 
 export default ( {navigation} ) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
-  const [baseCurrency, setBaseCurrency] = useState("USD");
-  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
   const [value, setValue] = useState("100");
+
+  const { baseCurrency, quoteCurrency, swapCurrencies } = useContext(ConversionContext);
 
   const conversionRate = 0.89824;
   const date = new Date();
-
-  const swapCurrencies = () => {
-    setBaseCurrency(quoteCurrency);
-    setQuoteCurrency(baseCurrency);
-  };
 
   return(
     <View style={styles.container}>
@@ -58,7 +55,7 @@ export default ( {navigation} ) => {
           <ConversionInput
             text={baseCurrency}
             value={value}
-            onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency', activeCurrency: baseCurrency, onChange: (currency) => setBaseCurrency(currency)})}
+            onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency', isBaseCurrency: true})}
             keyboardType="numeric"
             onChangeText={text => setValue(text)}
           />
@@ -68,7 +65,7 @@ export default ( {navigation} ) => {
               value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
             }
             editable={false}
-            onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency', activeCurrency: quoteCurrency, onChange: (currency) => setQuoteCurrency(currency)})}
+            onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency', isBaseCurrency: false})}
           />
 
           <Text style={styles.text}>

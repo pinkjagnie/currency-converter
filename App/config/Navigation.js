@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { Entypo } from '@expo/vector-icons';
 
+import { ConversionContextProvider } from "../util/ConversionContext";
+
 import Home from "../screens/Home";
 import Options from "../screens/Options";
 import CurrencyList from "../screens/CurrencyList";
@@ -49,6 +51,8 @@ const ModalStackScreen = () => (
 
 export default () => (
   <NavigationContainer>
-    <ModalStackScreen />
+    <ConversionContextProvider>
+      <ModalStackScreen />
+    </ConversionContextProvider>
   </NavigationContainer>
 );
