@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 
 import { RowItem, RowSeparator } from '../components/RowItem';
 
@@ -9,30 +9,32 @@ import colors from "../constans/colors";
 
 export default () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView>
 
-      <RowItem
-        text="Themes"
-        rightIcon={<Entypo name="chevron-right" size={20} color={colors.blue}/>} 
-        onPress={() => {alert("to do!")}}
-      />
+        <RowItem
+          text="Themes"
+          rightIcon={<Entypo name="chevron-right" size={20} color={colors.blue}/>} 
+          onPress={() => {alert("to do!")}}
+        />
 
-      <RowSeparator/>
+        <RowSeparator/>
 
-      <RowItem
-        text="React Native Basics"
-        rightIcon={<Entypo name="export" size={20} color={colors.blue}/>} 
-        onPress={() => {alert("to do!")}}
-      />
+        <RowItem
+          text="React Native Basics"
+          rightIcon={<Entypo name="export" size={20} color={colors.blue}/>} 
+          onPress={() => {alert("to do!")}}
+        />
 
-      <RowSeparator />
+        <RowSeparator />
 
-      <RowItem
-        text="React Native by Example"
-        rightIcon={<Entypo name="export" size={20} color={colors.blue}/>} 
-        onPress={() => {alert("to do!")}}
-      />
+        <RowItem
+          text="React Native by Example"
+          rightIcon={<Entypo name="export" size={20} color={colors.blue}/>} 
+          onPress={() => {alert("to do!")}}
+        />
 
+      </ScrollView>
     </SafeAreaView>
   )
 };
