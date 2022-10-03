@@ -15,11 +15,17 @@ const screen = Dimensions.get('window');
 
 export default ( {navigation} ) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
+  const [baseCurrency, setBaseCurrency] = useState("USD");
+  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
+  const [value, setValue] = useState("100");
 
-  const baseCurrency = "USD"
-  const quoteCurrency = "GBP"
-  const conversionRate = 0.89824
-  const date = "2022-10-03"
+  const conversionRate = 0.89824;
+  const date = new Date();
+
+  const swapCurrencies = () => {
+    setBaseCurrency(quoteCurrency);
+    setQuoteCurrency(baseCurrency);
+  };
 
   return(
     <View style={styles.container}>
@@ -51,14 +57,16 @@ export default ( {navigation} ) => {
 
           <ConversionInput
             text={baseCurrency}
-            value="123"
+            value={value}
             onButtonPress={() => navigation.push('CurrencyList', {title: 'Base Currency', activeCurrency: baseCurrency})}
             keyboardType="numeric"
-            onChangeText={text => console.log("text", text)}
+            onChangeText={text => setValue(text)}
           />
           <ConversionInput
             text={quoteCurrency}
-            value="123"
+            value={
+              value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
+            }
             editable={false}
             onButtonPress={() => navigation.push("CurrencyList", {title: 'Quote Currency', activeCurrency: quoteCurrency})}
           />
@@ -67,7 +75,7 @@ export default ( {navigation} ) => {
             {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(new Date(date), "MMM do, yyyy")}`}
           </Text>
 
-          <Button text="Reverse currencies" onPress={() => {alert('to do!')}} />
+          <Button text="Reverse currencies" onPress={() => swapCurrencies()} />
 
           <KeyboardSpacer onToggle={(keyboardIsVisible) => {setScrollEnabled(keyboardIsVisible)}} />
         </View>
