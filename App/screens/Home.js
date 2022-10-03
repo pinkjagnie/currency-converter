@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView } from "react-native";
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView, TouchableOpacity } from "react-native";
 
 import { format } from "date-fns";
+import { Entypo } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
@@ -11,7 +13,7 @@ import colors from "../constans/colors";
 
 const screen = Dimensions.get('window');
 
-export default () => {
+export default ( {navigation} ) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
 
   const baseCurrency = "USD"
@@ -23,6 +25,12 @@ export default () => {
     <View style={styles.container}>
       <ScrollView scrollEnabled={scrollEnabled}>
         <StatusBar barStyle="light-content" />
+
+        <SafeAreaView style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.push("Options")}>
+            <Entypo name="cog" size={32} color={colors.white} />
+          </TouchableOpacity>
+        </SafeAreaView>
 
         <View style={styles.content}>
         
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center"
   },
   content: {
-    paddingTop: screen.height * 0.2,
+    paddingTop: screen.height * 0.1,
   },
   logoContainer: {
     alignItems: "center",
@@ -104,5 +112,9 @@ const styles = StyleSheet.create({
   },
    inputContainer: {
     marginBottom: 10,
+  },
+  header: {
+    alignItems: "flex-end",
+    marginHorizontal: 20,
   },
 })
